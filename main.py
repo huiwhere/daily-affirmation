@@ -5,7 +5,7 @@ from datetime import datetime
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"
+LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"  # ← 這行不用改，已經是正確的
 
 SYSTEM_PROMPT = """你是一位溫暖、充滿正能量的生活導師。
 你的任務是每天生成一段三語每日 affirmation（正向宣言），格式如下：
@@ -50,8 +50,8 @@ def send_line_push(message: str) -> None:
         "messages": [{"type": "text", "text": message}],
     }
     resp = requests.post(url, headers=headers, json=payload, timeout=10)
-    print(f"LINE response: {resp.status_code} {resp.text}")
-    resp.raise_for_status()
+    if not resp.ok:
+        raise Exception(f"LINE error {resp.status_code}: {resp.text}")
     print(f"LINE push sent successfully (status {resp.status_code})")
 
 def main() -> None:
