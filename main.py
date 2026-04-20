@@ -5,7 +5,7 @@ from datetime import datetime
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_USER_ID = "tinayth50910"
+LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"
 
 SYSTEM_PROMPT = """你是一位溫暖、充滿正能量的生活導師。
 你的任務是每天生成一段三語每日 affirmation（正向宣言），格式如下：
