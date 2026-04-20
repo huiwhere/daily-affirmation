@@ -52,6 +52,7 @@ def send_line_push(message: str) -> None:
         "messages": [{"type": "text", "text": message}],
     }
     resp = requests.post(url, headers=headers, json=payload, timeout=10)
+    print(f"LINE response: {resp.status_code} {resp.text}")
     resp.raise_for_status()
     print(f"LINE push sent successfully (status {resp.status_code})")
 
