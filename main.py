@@ -24,11 +24,10 @@ SYSTEM_PROMPT = """你是一位溫暖、充滿正能量的生活導師。
 語氣要真誠、溫暖、充滿力量，像一位好朋友在鼓勵你。
 不要使用陳腔濫調，每天都要有新鮮感。"""
 
-
 def generate_affirmation(client: anthropic.Anthropic) -> str:
     today = datetime.now().strftime("%Y-%m-%d")
     response = client.messages.create(
-        model="claude-opus-4-7",
+        model="claude-opus-4-6",
         max_tokens=1024,
         system=SYSTEM_PROMPT,
         messages=[
@@ -39,7 +38,6 @@ def generate_affirmation(client: anthropic.Anthropic) -> str:
         ],
     )
     return next(block.text for block in response.content if block.type == "text")
-
 
 def send_line_push(message: str) -> None:
     url = "https://api.line.me/v2/bot/message/push"
@@ -56,14 +54,12 @@ def send_line_push(message: str) -> None:
     resp.raise_for_status()
     print(f"LINE push sent successfully (status {resp.status_code})")
 
-
 def main() -> None:
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
     print("Generating affirmation...")
     affirmation = generate_affirmation(client)
     print(f"Generated:\n{affirmation}\n")
     send_line_push(affirmation)
-
 
 if __name__ == "__main__":
     main()
