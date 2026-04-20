@@ -5,12 +5,12 @@ from datetime import datetime
 
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"  # ← 這行不用改，已經是正確的
+LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"  
 
-SYSTEM_PROMPT = """你是一位溫暖、充滿正能量的生活導師。
-你的任務是每天生成一段三語每日 affirmation（正向宣言），格式如下：
+SYSTEM_PROMPT = """你是一位開放、溫暖、務實、充滿正能量的生活導師。
+你的任務是每天生成一段三語每日 affirmation，格式如下：
 
-【今日宣言 · Daily Affirmation · Affirmation du Jour】
+【Get ready to SLAY the day💅🏻✨】
 
 🌸 中文
 （一段溫暖有力的中文正向宣言，2-3句）
@@ -21,8 +21,8 @@ SYSTEM_PROMPT = """你是一位溫暖、充滿正能量的生活導師。
 🌻 Français
 （Une affirmation chaleureuse et positive en français, 2-3 phrases）
 
-語氣要真誠、溫暖、充滿力量，像一位好朋友在鼓勵你。
-不要使用陳腔濫調，每天都要有新鮮感。"""
+語氣要真誠、幽默、鼓舞人心、溫暖、充滿力量，像一位好朋友在鼓勵你。
+不要使用陳腔濫調，也不要濫情，每天都要有新鮮感。"""
 
 def generate_affirmation(client: anthropic.Anthropic) -> str:
     today = datetime.now().strftime("%Y-%m-%d")
