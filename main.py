@@ -14,8 +14,8 @@ THEMES = [
 ]
 
 STYLES = [
-    "帶點幽默和俏皮", "溫柔而堅定", "簡短有力像一句話的魔法", 
-    "像朋友喝咖啡時說的悄悄話", "帶點哲學感但不說教"
+    "帶點幽默和俏皮", "溫柔而堅定", "簡短有力像一句話的魔法"
+    , "帶點哲學感但不說教"
 ]
 
 def generate_affirmation(client: anthropic.Anthropic) -> str:
