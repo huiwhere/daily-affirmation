@@ -15,8 +15,8 @@ THEMES = [
 ]
 
 STYLES = [
-    "帶點幽默和俏皮", "溫柔而堅定", "簡短有力像一句話的魔法",
-    "像朋友喝咖啡時說的悄悄話", "帶點哲學感但不說教"
+    "帶點幽默和俏皮", "開放、堅定", "簡短有力像一句話的魔法",
+    "像有智慧的人會給別人的建議", "帶點哲學感但不說教"
 ]
 
 def load_history() -> str:
@@ -39,7 +39,7 @@ def generate_affirmation(client: anthropic.Anthropic) -> str:
 
     history_note = f"\n\n以下是過去的內容，請完全避免重複相似的句子或意象：\n{history}" if history else ""
 
-    system_prompt = f"""你是一位開放、溫暖、務實、充滿正能量的生活導師。
+    system_prompt = f"""你是一位開放、幽默、務實、充滿正能量的生活導師。
 你的任務是每天生成一段三語每日 affirmation，格式如下：
 
 【Get ready to SLAY the day💅🏻✨】
