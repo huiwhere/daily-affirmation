@@ -7,6 +7,7 @@ from datetime import datetime
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"
+HISTORY_FILE = "history.txt"
 
 THEMES = [
     "成長與蛻變", "放下與釋懷", "勇氣與行動", "活在當下", "自我接納",
@@ -14,15 +15,30 @@ THEMES = [
 ]
 
 STYLES = [
-    "帶點幽默和俏皮", "溫柔而堅定", "簡短有力像一句話的魔法"
-    , "帶點哲學感但不說教"
+    "帶點幽默和俏皮", "溫柔而堅定", "簡短有力像一句話的魔法",
+    "像朋友喝咖啡時說的悄悄話", "帶點哲學感但不說教"
 ]
+
+def load_history() -> str:
+    if not os.path.exists(HISTORY_FILE):
+        return ""
+    with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    return "".join(lines[-30:])  # 只傳最近30筆
+
+def save_history(affirmation: str) -> None:
+    today = datetime.now().strftime("%Y-%m-%d")
+    with open(HISTORY_FILE, "a", encoding="utf-8") as f:
+        f.write(f"\n[{today}]\n{affirmation}\n")
 
 def generate_affirmation(client: anthropic.Anthropic) -> str:
     today = datetime.now().strftime("%Y-%m-%d")
     theme = random.choice(THEMES)
     style = random.choice(STYLES)
-    
+    history = load_history()
+
+    history_note = f"\n\n以下是過去的內容，請完全避免重複相似的句子或意象：\n{history}" if history else ""
+
     system_prompt = f"""你是一位開放、溫暖、務實、充滿正能量的生活導師。
 你的任務是每天生成一段三語每日 affirmation，格式如下：
 
@@ -39,7 +55,7 @@ def generate_affirmation(client: anthropic.Anthropic) -> str:
 
 今天的主題：{theme}
 今天的語氣風格：{style}
-不要使用陳腔濫調，也不要濫情，每天都要有新鮮感。"""
+不要使用陳腔濫調，也不要濫情，每天都要有新鮮感。{history_note}"""
 
     response = client.messages.create(
         model="claude-opus-4-6",
@@ -75,6 +91,7 @@ def main() -> None:
     affirmation = generate_affirmation(client)
     print(f"Generated:\n{affirmation}\n")
     send_line_push(affirmation)
+    save_history(affirmation)
 
 if __name__ == "__main__":
     main()
