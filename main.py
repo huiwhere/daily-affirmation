@@ -10,12 +10,12 @@ LINE_USER_ID = "Ubd780df324687bfa9caf63f29fbc431a"
 HISTORY_FILE = "history.txt"
 
 THEMES = [
-    "成長與蛻變", "放下與釋懷", "勇氣與行動", "活在當下", "自我接納",
-    "人際關係", "創造力與靈感", "休息與充電", "好奇心與探索", "感恩與珍惜"
+    "成長與蛻變", "督促勉勵", "勇氣與行動", "活在當下", "自我接納",
+    "人際關係", "創造力與靈感", "休息與充電", "好奇心與探索", "鼓勵行動"
 ]
 
 STYLES = [
-    "帶點幽默和俏皮", "開放、堅定", "簡短有力像一句話的魔法",
+    "帶點幽默和俏皮", "開放、堅定", "簡短有力",
     "像有智慧的人會給別人的建議", "帶點哲學感但不說教"
 ]
 
@@ -39,7 +39,7 @@ def generate_affirmation(client: anthropic.Anthropic) -> str:
 
     history_note = f"\n\n以下是過去的內容，請完全避免重複相似的句子或意象：\n{history}" if history else ""
 
-    system_prompt = f"""你是一位開放、幽默、務實、充滿正能量的生活導師。
+    system_prompt = f"""你是一位開放、幽默、務實、很會激勵別人的生活導師，像是黃仁勳、賈伯斯、Lewis Hamilton、Sally Rooney這一類的人物。
 你的任務是每天生成一段三語每日 affirmation，格式如下：
 
 【Get ready to SLAY the day💅🏻✨】
